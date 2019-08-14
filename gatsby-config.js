@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Divstuff Blog`,
-    author: `Div Osita`,
+    title: `Div Stuff`,
+    author: `David Osita, Jr.`,
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
