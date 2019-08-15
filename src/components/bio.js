@@ -54,10 +54,11 @@ const Bio = () => {
         }}
       />
       <p>
-        Written by <strong>{author}</strong> who lives and works in Digos City, Philippines, building useful things.
+        Written by <strong>{author}</strong> who lives and works in Digos City, Philippines.
+        Loves open source technologies like .Net Standard (C#), Javascript, Nodejs, ReactJs, Angular, and GraphQL.
         {` `}
         <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
+          Follow me on Twitter
         </a>
       </p>
     </div>
