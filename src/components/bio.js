@@ -55,7 +55,7 @@ const Bio = () => {
       />
       <p>
         Written by <strong>{author}</strong> who lives and works in Digos City, Philippines.
-        Loves open source technologies like .Net Standard (C#), Javascript, Nodejs, ReactJs, Angular, and GraphQL.
+        Over 15 plus years experience working in IT industry.
         {` `}
         <a href={`https://twitter.com/${social.twitter}`}>
           Follow me on Twitter
