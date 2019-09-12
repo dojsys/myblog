@@ -56,13 +56,13 @@ const Bio = () => {
       />
       <p>
         Written by <strong>{author}</strong> who lives and works in Digos City, Philippines.
-        Over 15 years plus of experience working in IT industry.
+        Having 20 years plus of experience working in IT industry.
         {` `}
         <a href={`https://twitter.com/${social.twitter}`}>
           Follow me on Twitter
         </a> &nbsp; | &nbsp;
         <a href={`https://facebook.com/${social.facebook}`}>
-          mail me on Facebook
+          Mail me on Facebook
         </a>
       </p>
     </div>
