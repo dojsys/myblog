@@ -59,6 +59,9 @@ const Bio = () => {
         {` `}
         <a href={`https://twitter.com/${social.twitter}`}>
           Follow me on Twitter
+        </a> or
+        <a href={`https://facebook.com/${social.facebook}`}>
+          Contact me on Facebook
         </a>
       </p>
     </div>
