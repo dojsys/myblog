@@ -5,7 +5,9 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
-  const result = await graphql(
+  return new Promise((resolve, reject) => {
+    resolve(
+      graphql(
     `
       {
         allMdx {
@@ -73,61 +75,36 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     `
-  )
+  ).then(result => {
+        if (result.errors) {
+          reject(result.errors);
+        }
 
-  if (result.errors) {
-    throw result.errors
-  }
-
-  // Create blog posts pages.
-  
-//   result.data.allMdx.edges.forEach(({ node }) => {
-//     createPage({
-//       path: `/posts/${node.frontmatter.slug}`,
-//       component: node.parent.absolutePath,
-//       context: {
-//         absPath: node.parent.absolutePath,
-//         timeToRead: node.timeToRead,
-//         cover: node.frontmatter.cover,
-//         tableOfContents: node.tableOfContents,
-//       },
-//     });
-//   });
-  
-  const posts = result.data.allMdx.edges
-  posts.forEach((post, index) => {
-    const previous = index === posts.length - 1 ? null : posts[index + 1].node
-    const next = index === 0 ? null : posts[index - 1].node
-    createPage({
-      path: post.node.fields.slug,
-      component: blogPost,
-      context: {
-        absPath: post.node.parent.absolutePath,
-        timeToRead: post.node.timeToRead,
-        slug: post.node.fields.slug,
-        cover: post.node.frontmatter.cover,
-        tableOfContents: post.node.tableOfContents,
-        previous,
-        next,
-      },
-    })
-  })
-  
-//   const posts = result.data.allMarkdownRemark.edges
-//   posts.forEach((post, index) => {
-//     const previous = index === posts.length - 1 ? null : posts[index + 1].node
-//     const next = index === 0 ? null : posts[index - 1].node
-//     createPage({
-//       path: post.node.fields.slug,
-//       component: blogPost,
-//       context: {
-//         slug: post.node.fields.slug,
-//         previous,
-//         next,
-//       },
-//     })
-//   })
-}
+        // Create blog posts pages.
+        const posts = result.data.allMdx.edges
+        posts.forEach(({ post, index }) => {
+          const previous = index === posts.length - 1 ? null : posts[index + 1].node
+          const next = index === 0 ? null : posts[index - 1].node
+          createPage({
+            path: `/posts/${post.node.frontmatter.slug}`,
+            component: post.node.parent.absolutePath,
+            //path: node.fields.slug,
+            //component: blogPost,
+            context: {
+              absPath: post.node.parent.absolutePath,
+              timeToRead: post.node.timeToRead,
+              cover: post.node.frontmatter.cover,
+              tableOfContents: post.node.tableOfContents,
+              previous,
+              next,
+            },
+          });
+        });
+        
+      })
+    );
+  });
+};
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
