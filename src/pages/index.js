@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-
+import styled from '@emotion/styled';
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -85,7 +85,7 @@ const ItemFooterBlock = styled('div')`
 `;
 
 export const pageQuery = graphql`
-  query {
+  query IndexPageQuery {
     site {
       siteMetadata {
         title
