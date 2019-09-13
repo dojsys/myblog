@@ -80,18 +80,38 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Create blog posts pages.
-  result.data.allMdx.edges.forEach(({ node }) => {
+  
+//   result.data.allMdx.edges.forEach(({ node }) => {
+//     createPage({
+//       path: `/posts/${node.frontmatter.slug}`,
+//       component: node.parent.absolutePath,
+//       context: {
+//         absPath: node.parent.absolutePath,
+//         timeToRead: node.timeToRead,
+//         cover: node.frontmatter.cover,
+//         tableOfContents: node.tableOfContents,
+//       },
+//     });
+//   });
+  
+  const posts = result.data.allMdx.edges
+  posts.forEach((post, index) => {
+    const previous = index === posts.length - 1 ? null : posts[index + 1].node
+    const next = index === 0 ? null : posts[index - 1].node
     createPage({
-      path: `/posts/${node.frontmatter.slug}`,
-      component: node.parent.absolutePath,
+      path: post.node.fields.slug,
+      component: blogPost,
       context: {
-        absPath: node.parent.absolutePath,
-        timeToRead: node.timeToRead,
-        cover: node.frontmatter.cover,
-        tableOfContents: node.tableOfContents,
+        absPath: post.node.parent.absolutePath,
+        timeToRead: post.node.timeToRead,
+        slug: post.node.fields.slug,
+        cover: post.node.frontmatter.cover,
+        tableOfContents: post.node.tableOfContents,
+        previous,
+        next,
       },
-    });
-  });
+    })
+  })
   
 //   const posts = result.data.allMarkdownRemark.edges
 //   posts.forEach((post, index) => {
